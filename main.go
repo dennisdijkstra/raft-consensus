@@ -9,7 +9,6 @@ import (
 	"os"
 	"path"
 	"time"
-
 	"github.com/gorilla/mux"
 	"github.com/hashicorp/raft"
 	raftmdb "github.com/hashicorp/raft-mdb"
@@ -24,6 +23,7 @@ type snapshotNoop struct{}
 func (sn snapshotNoop) Persist(_ raft.SnapshotSink) error {
 	return nil
 }
+
 func (sn snapshotNoop) Release() {
 	return
 }
@@ -112,7 +112,7 @@ func main() {
 	db := &map[string]string{}
 	kv := &kvFsm{db}
 
-	r, err := setupRaft(path.Join(dataDir, "raft"+nodeId), nodeId, "localhost:9090", kv)
+	r, err := setupRaft(path.Join(dataDir, "raft" + nodeId), nodeId, "localhost:9090", kv)
 	if err != nil {
 		log.Fatal(err)
 	}
