@@ -9,6 +9,7 @@ import (
 	"os"
 	"path"
 	"time"
+
 	"github.com/gorilla/mux"
 	"github.com/hashicorp/raft"
 	raftmdb "github.com/hashicorp/raft-mdb"
@@ -112,7 +113,7 @@ func main() {
 	db := &map[string]string{}
 	kv := &kvFsm{db}
 
-	r, err := setupRaft(path.Join(dataDir, "raft" + nodeId), nodeId, "localhost:9090", kv)
+	r, err := setupRaft(path.Join(dataDir, "raft"+nodeId), nodeId, "localhost:9090", kv)
 	if err != nil {
 		log.Fatal(err)
 	}
