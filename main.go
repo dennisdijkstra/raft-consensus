@@ -126,7 +126,11 @@ func main() {
 	router.HandleFunc("/nodes/list", hs.listNodes).Methods("GET")
 	router.HandleFunc("/nodes/{id}", hs.removeNode).Methods("DELETE")
 
-	http.Handle("/", router)
+	server := &http.Server{
+		Addr:              ":8080",
+		Handler:           router,
+		ReadHeaderTimeout: 5 * time.Second,
+	}
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(server.ListenAndServe())
 }
